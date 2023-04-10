@@ -91,6 +91,10 @@
                                 <td id="name"></td>
                             </tr>
                             <tr>
+                                <th>Email:</th>
+                                <td id="email"></td>
+                            </tr>
+                            <tr>
                                 <th>Age:</th>
                                 <td id="age"></td>
                             </tr>
@@ -162,13 +166,16 @@
         key = key.toLocaleLowerCase();
 
         var a = 0;
+        var em = 0;
         var b = 0;
         contractInstance.get_doctor.call(key, {gas: 1000000},function(error, result){
             if(!error){
                 a = result[0]; 
-                b = result[1];
+                em = result[1];
+                b = result[2];
                 docName = a;
                 $("#name").html(a);
+                $("#email").html(em);
                 $("#age").html(b.c[0]);
             }
                 
@@ -186,7 +193,7 @@
                     contractInstance.get_patient.call(patientAddress, {gas: 1000000}, function(error, result){
                         var table = document.getElementById("viewPatient");
                         if(!error) {
-                            [a,b] = result;
+                            [a,em,b] = result;
                             console.log(a);
 
                             var row = table.insertRow(index+1);

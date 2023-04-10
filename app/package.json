@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "solc": "^0.4.24",
+    "solc": "^0.5.1",
     "web3": "^0.20.0"
   },
   "devDependencies": {

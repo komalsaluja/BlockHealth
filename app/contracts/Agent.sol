@@ -1,9 +1,10 @@
 // SPDX-License-Identifier:MIT
-pragma solidity ^0.5.1;
+pragma solidity >=0.5.1;
 
 contract Agent {
     struct patient {
         string name;
+        string email;
         uint age;
         address[] doctorAccessList;
         uint[] diagnosis;
@@ -12,6 +13,7 @@ contract Agent {
 
     struct doctor {
         string name;
+        string email;
         uint age;
         address[] patientAccessList;
     }
@@ -29,6 +31,7 @@ contract Agent {
 
     function add_agent(
         string memory _name,
+        string memory _email,
         uint _age,
         uint _designation,
         string memory _hash
@@ -38,6 +41,7 @@ contract Agent {
         if (_designation == 0) {
             patient memory p;
             p.name = _name;
+            p.email = _email;
             p.age = _age;
             p.record = _hash;
             patientInfo[msg.sender] = p;
@@ -45,6 +49,7 @@ contract Agent {
             return _name;
         } else if (_designation == 1) {
             doctorInfo[addr].name = _name;
+            doctorInfo[addr].email = _email;
             doctorInfo[addr].age = _age;
             doctorList.push(addr) - 1;
             return _name;
@@ -58,6 +63,7 @@ contract Agent {
         view
         returns (
             string memory,
+            string memory,
             uint,
             uint[] memory,
             address,
@@ -67,6 +73,7 @@ contract Agent {
         // if(keccak256(patientInfo[addr].name) == keccak256(""))revert();
         return (
             patientInfo[addr].name,
+            patientInfo[addr].email,
             patientInfo[addr].age,
             patientInfo[addr].diagnosis,
             Empty[addr],
@@ -77,10 +84,18 @@ contract Agent {
     function get_doctor(address addr)
         public
         view
-        returns (string memory, uint)
+        returns (
+            string memory,
+            string memory,
+            uint
+        )
     {
         // if(keccak256(doctorInfo[addr].name)==keccak256(""))revert();
-        return (doctorInfo[addr].name, doctorInfo[addr].age);
+        return (
+            doctorInfo[addr].name,
+            doctorInfo[addr].email,
+            doctorInfo[addr].age
+        );
     }
 
     function get_patient_doctor_name(address paddr, address daddr)
