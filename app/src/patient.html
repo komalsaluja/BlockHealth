@@ -124,6 +124,10 @@
                                     <td id="email"></td>
                                 </tr>
                                 <tr>
+                                    <th>Past History:</th>
+                                    <td id="hist"></td>
+                                </tr>
+                                <tr>
                                     <th>Age:</th>
                                     <td id="age"></td>
                                 </tr>
@@ -224,6 +228,7 @@
 
         var a = "";
         var em = "";
+        var ht = "";
         var b = 0;
         var ailments = [];
         var insurerName = "";
@@ -238,13 +243,15 @@
             if(!error){
                 console.log(result);
                 a = result[0]; 
-                b = result[2];
-                ailments = result[3];
-                insurerAddress = result[4];
-                recordHash = result[5];
+                b = result[3];
+                ailments = result[4];
+                insurerAddress = result[5];
+                recordHash = result[6];
                 em = result[1]; 
+                ht = result[2];
                 $("#name").html(a);
                 $("#email").html(em);
+                $("#hist").html(ht);
                 $("#age").html(b.c[0]);
                 $("#recordsHash").html(recordHash);
 
@@ -304,7 +311,7 @@
                         var list = document.getElementById("permitDoctorList");
 
                         if(!error) {
-                            [a,em, b] = result; 
+                            [a,em,ht, b] = result; 
                             var option = document.createElement("option");
                             option.text = a;
 
@@ -332,7 +339,7 @@
                     contractInstance.get_doctor.call(doctorAddress, {gas: 1000000}, function(error, result){
                         var table = document.getElementById("accessDoc");
                         if(!error) {
-                            [a,em,b] = result;
+                            [a,em,ht,b] = result;
                             console.log(a);
                             var row = table.insertRow(index+1);
                             var cell1 = row.insertCell(0);

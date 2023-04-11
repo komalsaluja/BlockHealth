@@ -109,13 +109,22 @@
                         <div class="form-group"> 
                             <label for="designation" class="control-label col-sm-2">Registering as</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="designation" required>
+                                <select class="form-control" id="designation" onchange="showDiv('qual',this)" required>
                                     <option selected disabled>-- Please Select --</option>
                                     <option value="0">Patient</option>
                                     <option value="1">Doctor</option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="qual" id="i"></label>
+                            <div class="col-sm-8">
+                             <input type="text" class="form-control" id="qual" name = "qual" required>
+                            </div>
+                        </div>
+
+
 
                     </form>
                     <div class="text-center">
@@ -145,6 +154,15 @@
    // document.getElementById(divId).style.display = element.value == 1 ? 'block' : 'none';
 //} 
 
+let ele = document.getElementById(qual).style.display = 'none';
+function showDiv(qual, element){
+if(document.getElementById(qual).style.display = element.value == 1) {
+document.getElementById('i').innerHTML='Enter Qualification'
+} else {
+document.getElementById('i').innerHTML='Enter Past History'
+}
+} 
+
     function addAgent(){
         var ipfs = window.IpfsApi('localhost', '5001')
 
@@ -152,6 +170,7 @@
 
         name = $("#name").val();
         email = $("#email").val();
+        info = $("#qual").val();
         age = $("#age").val();
         publicKey = $("#publicKey").val();
        // email = $("#email").val();
@@ -171,7 +190,6 @@
             x.style.display = 'none';
         }
     }); */
-       
         
        // publicKey = web3.currentProvider.selectedAddress;
         console.log("PK:"+publicKey);
@@ -235,6 +253,7 @@
                     var reportTitle = 
 `Name: ${name}
 Email: ${email}
+Info: ${info}
 Age: ${age}
 Public Key: ${publicKey}
                             
@@ -248,7 +267,7 @@ Public Key: ${publicKey}
                             console.log("result:"+result);
                             ipfshash = result[0].hash;
                             console.log("Ipfs hash:"+ipfshash);
-                            contractInstance.add_agent(name,email, age, designation, ipfshash, {gas: 1000000}, (err, res) => {
+                            contractInstance.add_agent(name,email,info, age, designation, ipfshash, {gas: 1000000}, (err, res) => {
                                 if(!err){
                                     location.replace("./patient.html");
                                 }else{
@@ -259,7 +278,7 @@ Public Key: ${publicKey}
                         }
                     })
                 }else{
-                    contractInstance.add_agent(name,email, age, designation, ipfshash, {gas: 1000000}, (err, res) => {
+                    contractInstance.add_agent(name,email,info, age, designation, ipfshash, {gas: 1000000}, (err, res) => {
                     if (!err) {
                         if (designation == "1") {
                             location.replace("./doctor.html");

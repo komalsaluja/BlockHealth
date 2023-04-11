@@ -5,6 +5,7 @@ contract Agent {
     struct patient {
         string name;
         string email;
+        string info;
         uint age;
         address[] doctorAccessList;
         uint[] diagnosis;
@@ -14,6 +15,7 @@ contract Agent {
     struct doctor {
         string name;
         string email;
+        string info;
         uint age;
         address[] patientAccessList;
     }
@@ -32,6 +34,7 @@ contract Agent {
     function add_agent(
         string memory _name,
         string memory _email,
+        string memory _info,
         uint _age,
         uint _designation,
         string memory _hash
@@ -42,6 +45,7 @@ contract Agent {
             patient memory p;
             p.name = _name;
             p.email = _email;
+            p.info = _info;
             p.age = _age;
             p.record = _hash;
             patientInfo[msg.sender] = p;
@@ -50,6 +54,7 @@ contract Agent {
         } else if (_designation == 1) {
             doctorInfo[addr].name = _name;
             doctorInfo[addr].email = _email;
+            doctorInfo[addr].info = _info;
             doctorInfo[addr].age = _age;
             doctorList.push(addr) - 1;
             return _name;
@@ -64,6 +69,7 @@ contract Agent {
         returns (
             string memory,
             string memory,
+            string memory,
             uint,
             uint[] memory,
             address,
@@ -74,6 +80,7 @@ contract Agent {
         return (
             patientInfo[addr].name,
             patientInfo[addr].email,
+            patientInfo[addr].info,
             patientInfo[addr].age,
             patientInfo[addr].diagnosis,
             Empty[addr],
@@ -87,6 +94,7 @@ contract Agent {
         returns (
             string memory,
             string memory,
+            string memory,
             uint
         )
     {
@@ -94,6 +102,7 @@ contract Agent {
         return (
             doctorInfo[addr].name,
             doctorInfo[addr].email,
+            doctorInfo[addr].info,
             doctorInfo[addr].age
         );
     }
