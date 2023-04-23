@@ -124,6 +124,15 @@
                             </div>
                         </div>
 
+                        <!-- <div class="form-group"></div>
+                        <fieldset>
+                            <legend>Upload photo</legend>
+                            <input type="file" name="photo" id="photo">
+                            <button type="button" onclick="upload()">Upload</button>
+                          </fieldset>
+                        </div> -->
+
+
 
 
                     </form>
@@ -154,12 +163,11 @@
    // document.getElementById(divId).style.display = element.value == 1 ? 'block' : 'none';
 //} 
 
-let ele = document.getElementById(qual).style.display = 'none';
 function showDiv(qual, element){
 if(document.getElementById(qual).style.display = element.value == 1) {
-document.getElementById('i').innerHTML='Enter Qualification'
+document.getElementById('i').innerHTML='Enter Qualification:'
 } else {
-document.getElementById('i').innerHTML='Enter Past History'
+document.getElementById('i').innerHTML='Any Previous History:'
 }
 } 
 
@@ -178,6 +186,8 @@ document.getElementById('i').innerHTML='Enter Past History'
 
         designation = $("#designation").val();
         designation = parseInt(designation);
+
+       
         
       // alert(designation);
      // const des = document.getElementById('designation');
